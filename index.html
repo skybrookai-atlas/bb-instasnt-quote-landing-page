@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Instant Fence Quote | Byron &amp; Beyond Fencing</title>
+  <meta name="description" content="Draw your fence on the map, choose your fencing style and see your instant quote in minutes. Timber and Colorbond fences. Free, no obligation. Northern Rivers, NSW.">
+  <meta name="theme-color" content="#0B5AA3">
+  <link rel="icon" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://app.byronandbeyondfencing.com.au">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #0B5AA3;        /* brand button blue */
+      --navy-hover: #094a87;
+      --navy-deep: #0B3C6B;
+      --sky: #34BEE0;         /* brand accent (stars, icons) */
+      --ink: #15263A;         /* headings */
+      --text: #3B4654;
+      --muted: #6B7785;
+      --line: #E3E8EE;
+      --bg: #FFFFFF;
+      --bg-soft: #F3F6F9;
+      --ph: #E6ECF2;          /* photo placeholder */
+      --radius: 16px;
+      --pill: 999px;
+      --shadow-card: 0 1px 2px rgba(21, 38, 58, .06), 0 12px 40px rgba(21, 38, 58, .10);
+      --wrap: 1180px;
+      --gutter: 20px;
+      --header-h: 68px;
+      --font-head: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --font-body: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 16px); }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 400 16px/1.65 var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+    body.has-sticky { padding-bottom: 88px; }
+    img { max-width: 100%; display: block; }
+    a { color: var(--navy); }
+    h1, h2, h3 { font-family: var(--font-head); color: var(--ink); margin: 0; font-weight: 500; letter-spacing: -0.02em; line-height: 1.08; }
+    p { margin: 0; }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+    .section { padding: 88px 0; }
+    .section-head { max-width: 640px; margin-bottom: 48px; }
+    .section-head h2 { font-size: clamp(1.9rem, 3.6vw, 2.75rem); }
+    .section-head p { margin-top: 14px; color: var(--muted); font-size: 1.05rem; }
+    .eyebrow {
+      display: inline-block;
+      font: 500 .78rem/1 var(--font-body);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 18px;
+    }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 56px; padding: 0 30px;
+      border-radius: var(--pill); border: 0;
+      background: var(--navy); color: #fff;
+      font: 500 1.05rem/1 var(--font-body); letter-spacing: .02em;
+      text-decoration: none; cursor: pointer;
+      transition: background-color .15s ease, box-shadow .15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover { background: var(--navy-hover); }
+    .btn:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
+    .btn .arrow { transition: translate .15s ease; }
+    .btn:hover .arrow { translate: 3px 0; }
+    .btn--sm { min-height: 44px; padding: 0 20px; font-size: .92rem; }
+    .btn--light { background: #fff; color: var(--navy-deep); }
+    .btn--light:hover { background: #EAF4FB; }
+    .microcopy { margin-top: 14px; font-size: .9rem; color: var(--muted); }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      height: var(--header-h);
+      background: rgba(255, 255, 255, .94);
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s ease;
+    }
+    .site-header.is-scrolled { border-bottom-color: var(--line); }
+    .site-header .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo img { height: 42px; width: auto; }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .header-link { color: var(--text); text-decoration: none; font-size: .9rem; }
+    .header-link:hover { color: var(--navy); }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      background: linear-gradient(180deg, #fff 0%, var(--bg-soft) 100%);
+      padding: 64px 0 96px;
+    }
+    .hero .wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 540px);
+      gap: 64px;
+      align-items: center;
+    }
+    .hero h1 { font-size: clamp(2.4rem, 5.2vw, 4rem); max-width: 12ch; }
+    .hero .lede { margin-top: 22px; font-size: 1.15rem; max-width: 30rem; color: var(--text); }
+    .hero .range { margin-top: 12px; font-size: .92rem; color: var(--muted); }
+    .hero-cta { margin-top: 30px; }
+    .rating {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--line);
+      font-size: .92rem; color: var(--muted);
+    }
+    .rating strong { font: 600 1.15rem/1 var(--font-head); color: var(--ink); }
+    .stars { display: inline-flex; gap: 2px; color: var(--sky); }
+    .stars svg { width: 18px; height: 18px; }
+
+    /* Estimator card. The embed loader inserts its iframe before its own
+       <script> and switches that iframe to position:fixed to go fullscreen,
+       so no ancestor here may use transform, filter or backdrop-filter. */
+    .estimator {
+      position: relative;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      padding: 8px;
+      min-height: 476px;
+      transition: box-shadow .3s ease;
+    }
+    .estimator iframe { position: relative; z-index: 1; border-radius: 10px; }
+    .estimator-loading {
+      position: absolute; inset: 0;
+      display: grid; place-items: center;
+      color: var(--muted); font-size: .9rem;
+    }
+    .estimator.pulse { animation: pulse 1.4s ease-out 1; }
+    @keyframes pulse {
+      0%   { box-shadow: var(--shadow-card), 0 0 0 0 rgba(52, 190, 224, .55); }
+      100% { box-shadow: var(--shadow-card), 0 0 0 18px rgba(52, 190, 224, 0); }
+    }
+
+    /* ---------- How it works ---------- */
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; counter-reset: step; }
+    .step { counter-increment: step; }
+    .step-art {
+      aspect-ratio: 16 / 10;
+      background: var(--bg-soft);
+      border-radius: var(--radius);
+      display: grid; place-items: center;
+      margin-bottom: 24px;
+    }
+    .step-art svg { width: 70%; height: auto; }
+    .step h3 { font-size: 1.25rem; display: flex; align-items: baseline; gap: 12px; }
+    .step h3::before {
+      content: counter(step);
+      font: 500 .85rem/1 var(--font-body);
+      color: #fff; background: var(--navy);
+      width: 28px; height: 28px; border-radius: 50%;
+      display: inline-grid; place-items: center; flex: none;
+      translate: 0 -3px;
+    }
+    .step p { margin-top: 10px; color: var(--muted); }
+    /* Step 4 is the optional follow-on, so it reads as "next" rather than a fourth hoop. */
+    .step--next .step-art { position: relative; background: #fff; outline: 2px dashed #C9D4DF; outline-offset: -2px; }
+    .step--next h3::before { background: var(--sky); }
+    .step-tag {
+      position: absolute; top: 14px; left: 14px;
+      font: 500 .72rem/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase;
+      color: var(--navy); background: #E4F5FB; padding: 6px 10px; border-radius: var(--pill);
+    }
+    @media (max-width: 1023px) {
+      .steps { grid-template-columns: 1fr 1fr; row-gap: 48px; }
+    }
+
+    /* ---------- Trust ---------- */
+    .trust { background: var(--bg-soft); }
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .fact { padding: 28px 24px 28px 0; }
+    .fact + .fact { padding-left: 24px; border-left: 1px solid var(--line); }
+    .fact strong { display: block; font: 500 1.9rem/1.1 var(--font-head); color: var(--ink); letter-spacing: -0.02em; }
+    .fact span { display: block; margin-top: 6px; font-size: .92rem; color: var(--muted); }
+    .fact .stars { display: flex; margin-top: 8px; color: var(--sky); }
+    .gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; margin-top: 48px; }
+    .quote { margin: 48px 0 0; max-width: 720px; }
+    .quote p { font: 400 clamp(1.3rem, 2.4vw, 1.7rem)/1.4 var(--font-head); color: var(--ink); letter-spacing: -0.01em; }
+    .quote footer { margin-top: 14px; font-size: .9rem; color: var(--muted); }
+
+    /* Photo placeholders: swap each <div class="ph"> for an <img> of the same size. */
+    .ph {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius);
+      background:
+        repeating-linear-gradient(90deg, transparent 0 22px, rgba(21, 38, 58, .045) 22px 24px),
+        var(--ph);
+      display: flex; align-items: flex-end;
+      padding: 16px;
+      color: var(--muted); font-size: .82rem;
+    }
+    .gallery .ph:first-child { aspect-ratio: auto; min-height: 100%; }
+
+    /* ---------- Why ---------- */
+    .why .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .why h2 { font-size: clamp(1.9rem, 3.6vw, 2.75rem); }
+    .why .intro { margin-top: 18px; font-size: 1.08rem; }
+    .benefits { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 22px; }
+    .benefits li { display: grid; grid-template-columns: 28px 1fr; gap: 14px; }
+    .benefits svg { width: 24px; height: 24px; color: var(--sky); margin-top: 2px; }
+    .benefits strong { display: block; font: 500 1.1rem/1.3 var(--font-head); color: var(--ink); }
+    .benefits span { color: var(--muted); font-size: .95rem; }
+    .why .ph { aspect-ratio: 4 / 5; }
+
+    /* ---------- FAQ ---------- */
+    .faq { background: var(--bg-soft); }
+    .faq .wrap { display: grid; grid-template-columns: 1fr 1.6fr; gap: 72px; }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq details { border-bottom: 1px solid var(--line); }
+    .faq summary {
+      list-style: none; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 24px;
+      padding: 24px 0;
+      font: 500 1.15rem/1.35 var(--font-head); color: var(--ink);
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: ""; flex: none; width: 12px; height: 12px;
+      border-right: 2px solid var(--navy); border-bottom: 2px solid var(--navy);
+      rotate: 45deg; translate: 0 -3px; transition: rotate .2s ease, translate .2s ease;
+    }
+    .faq details[open] summary::after { rotate: 225deg; translate: 0 3px; }
+    .faq summary:focus-visible { outline: 3px solid var(--sky); outline-offset: 4px; border-radius: 4px; }
+    .faq .answer { padding: 0 0 26px; color: var(--text); max-width: 60ch; }
+    .faq .answer p + p, .faq .answer p + ul { margin-top: 12px; }
+    .faq .answer ul { margin: 12px 0 0; padding-left: 20px; }
+    .faq .answer li { margin: 4px 0; }
+
+    /* ---------- Final CTA ---------- */
+    .final { background: var(--navy-deep); color: #fff; text-align: center; padding: 96px 0; }
+    .final h2 { color: #fff; font-size: clamp(2rem, 4.4vw, 3.25rem); max-width: 16ch; margin: 0 auto; }
+    .final .btn { margin-top: 36px; }
+    .final .microcopy { color: rgba(255, 255, 255, .72); }
+
+    /* ---------- Footer ---------- */
+    .site-footer { padding: 32px 0; font-size: .85rem; color: var(--muted); }
+    .site-footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .site-footer img { height: 34px; width: auto; }
+
+    /* ---------- Sticky mobile CTA ---------- */
+    .sticky-cta {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+      padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom));
+      background: rgba(255, 255, 255, .96);
+      border-top: 1px solid var(--line);
+      box-shadow: 0 -8px 24px rgba(21, 38, 58, .08);
+      translate: 0 110%;
+      transition: translate .25s ease;
+      display: none;
+    }
+    .sticky-cta .btn { width: 100%; }
+    .sticky-cta.is-visible { translate: 0 0; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 960px) {
+      .hero .wrap { grid-template-columns: 1fr; gap: 36px; }
+      .hero h1 { max-width: 14ch; }
+      .estimator { max-width: 600px; }
+      .why .wrap, .faq .wrap { grid-template-columns: 1fr; gap: 40px; }
+      .why .ph { aspect-ratio: 16 / 10; order: -1; }
+    }
+    @media (max-width: 767px) {
+      :root { --header-h: 60px; --gutter: 16px; }
+      .section { padding: 64px 0; }
+      .section-head { margin-bottom: 32px; }
+      .logo img { height: 34px; }
+      .header-link { display: none; }
+      .hero { padding: 28px 0 56px; }
+      .hero .lede { font-size: 1.02rem; margin-top: 14px; }
+      .hero-cta { margin-top: 24px; }
+      .hero-cta .btn { width: 100%; }
+      .microcopy { text-align: center; }
+      .rating { margin-top: 20px; padding-top: 0; border-top: 0; justify-content: center; }
+      .estimator { padding: 4px; min-height: 468px; }
+      .steps { grid-template-columns: 1fr; gap: 36px; }
+      .step-art { aspect-ratio: 16 / 7; margin-bottom: 18px; }
+      .step-art svg { width: 44%; }
+      .facts { grid-template-columns: 1fr 1fr; }
+      .fact, .fact + .fact { padding: 22px 16px 22px 0; border-left: 0; }
+      .fact:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--line); }
+      .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
+      .fact strong { font-size: 1.55rem; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .gallery .ph:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+      .final { padding: 72px 0; }
+      .final .btn { width: 100%; }
+      .site-footer .wrap { justify-content: center; text-align: center; }
+      .sticky-cta { display: block; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" id="top">
+    <div class="wrap">
+      <a class="logo" href="https://www.byronandbeyondfencing.com.au/" aria-label="Byron &amp; Beyond Fencing home">
+        <img src="assets/logo.png" alt="Byron &amp; Beyond Fencing" width="109" height="42">
+      </a>
+      <nav class="header-nav" aria-label="Primary">
+        <a class="header-link" href="https://www.byronandbeyondfencing.com.au/#AboutUs">About Byron &amp; Beyond</a>
+        <a class="btn btn--sm" href="#estimator" data-start>Get Instant Quote <span class="arrow" aria-hidden="true">→</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 1 + 2. Hero with the estimator in it -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div class="hero-copy">
+          <span class="eyebrow">Instant Fence Quotes</span>
+          <h1 id="hero-title">Get an instant quote for your new fence</h1>
+          <p class="lede">Draw your fence on the map, choose your fencing style and see your price in just a few minutes, based on your real dimensions.</p>
+          <p class="range">For timber paling, hardwood and Colorbond fences</p>
+          <div class="hero-cta" id="hero-cta">
+            <a class="btn" href="#estimator" data-start>Get My Instant Quote <span class="arrow" aria-hidden="true">→</span></a>
+            <p class="microcopy">Free · No obligation · Takes just a few minutes</p>
+          </div>
+          <div class="rating">
+            <strong>4.9</strong>
+            <span class="stars" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+              <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+              <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+              <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+              <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+            </span>
+            <span><span class="visually-hidden">4.9 out of 5 from </span>71 Google reviews · Northern Rivers locals</span>
+          </div>
+        </div>
+
+        <!-- The estimator. "card" variant: shows the address step here, then
+             expands to fullscreen once the visitor moves on. -->
+        <div class="estimator" id="estimator" tabindex="-1" aria-label="Instant fence quote">
+          <div class="estimator-loading" aria-hidden="true">Loading your instant quote…</div>
+          <script src="https://app.byronandbeyondfencing.com.au/estimator-embed.js"
+                  data-key="de3df6bf0df74d2bb6d1f13851657cf259e0501b1a4d4261b78237b6ea07be63"
+                  data-variant="card" defer></script>
+          <noscript>
+            <p style="position:relative;z-index:1;padding:24px">
+              <a class="btn" href="https://app.byronandbeyondfencing.com.au/estimate?k=de3df6bf0df74d2bb6d1f13851657cf259e0501b1a4d4261b78237b6ea07be63">Get your instant quote →</a>
+            </p>
+          </noscript>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. How it works -->
+    <section class="section" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">How it works</span>
+          <h2 id="how-title">Three steps to your instant quote</h2>
+          <p>Then one more step to get a firm quote and lock in your price.</p>
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <div class="step-art" aria-hidden="true">
+              <svg viewBox="0 0 160 100" fill="none">
+                <rect x="4" y="4" width="152" height="92" rx="10" fill="#fff"/>
+                <path d="M4 62 L60 44 L110 60 L156 40" stroke="#E3E8EE" stroke-width="6"/>
+                <path d="M40 4 L52 96" stroke="#E3E8EE" stroke-width="6"/>
+                <rect x="70" y="16" width="30" height="22" rx="3" fill="#E6ECF2"/>
+                <rect x="112" y="70" width="28" height="18" rx="3" fill="#E6ECF2"/>
+                <path d="M24 30 L24 80 L134 80" stroke="#0B5AA3" stroke-width="3" stroke-dasharray="6 5" stroke-linecap="round"/>
+                <circle cx="24" cy="30" r="6" fill="#fff" stroke="#0B5AA3" stroke-width="3"/>
+                <circle cx="24" cy="80" r="6" fill="#fff" stroke="#0B5AA3" stroke-width="3"/>
+                <circle cx="134" cy="80" r="6" fill="#34BEE0"/>
+              </svg>
+            </div>
+            <h3>Draw your fence</h3>
+            <p>Mark where your new fence will go using the map.</p>
+          </li>
+          <li class="step">
+            <div class="step-art" aria-hidden="true">
+              <svg viewBox="0 0 160 100" fill="none">
+                <rect x="6" y="14" width="44" height="72" rx="8" fill="#fff"/>
+                <rect x="58" y="14" width="44" height="72" rx="8" fill="#fff" stroke="#0B5AA3" stroke-width="3"/>
+                <rect x="110" y="14" width="44" height="72" rx="8" fill="#fff"/>
+                <g fill="#C9D4DF"><rect x="14" y="30" width="7" height="44" rx="2"/><rect x="24.5" y="30" width="7" height="44" rx="2"/><rect x="35" y="30" width="7" height="44" rx="2"/></g>
+                <g fill="#0B5AA3"><rect x="66" y="26" width="28" height="4" rx="2"/><rect x="66" y="34" width="7" height="44" rx="2"/><rect x="76.5" y="34" width="7" height="44" rx="2"/><rect x="87" y="34" width="7" height="44" rx="2"/></g>
+                <g fill="#C9D4DF"><rect x="118" y="30" width="28" height="11" rx="2"/><rect x="118" y="46" width="28" height="11" rx="2"/><rect x="118" y="62" width="28" height="11" rx="2"/></g>
+                <circle cx="100" cy="16" r="10" fill="#34BEE0"/>
+                <path d="M95.5 16.2 L98.8 19.4 L104.6 13" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Choose your fence</h3>
+            <p>Pick from timber paling, hardwood or Colorbond styles and options.</p>
+          </li>
+          <li class="step">
+            <div class="step-art" aria-hidden="true">
+              <svg viewBox="0 0 160 100" fill="none">
+                <rect x="24" y="10" width="112" height="80" rx="10" fill="#fff"/>
+                <rect x="38" y="24" width="44" height="6" rx="3" fill="#E3E8EE"/>
+                <text x="38" y="58" font-family="Outfit, sans-serif" font-size="24" font-weight="600" fill="#15263A">$ 4,850</text>
+                <rect x="38" y="68" width="60" height="5" rx="2.5" fill="#E3E8EE"/>
+                <rect x="104" y="64" width="20" height="14" rx="7" fill="#34BEE0"/>
+              </svg>
+            </div>
+            <h3>Get your instant quote</h3>
+            <p>See your price straight away, based on your real dimensions.</p>
+          </li>
+          <li class="step step--next">
+            <div class="step-art" aria-hidden="true">
+              <svg viewBox="0 0 160 100" fill="none">
+                <rect x="30" y="10" width="54" height="80" rx="9" fill="#fff" stroke="#C9D4DF" stroke-width="2"/>
+                <rect x="36" y="18" width="42" height="56" rx="4" fill="#E6ECF2"/>
+                <circle cx="57" cy="46" r="11" fill="#0B5AA3"/>
+                <path d="M54 40.5 L62.5 46 L54 51.5 Z" fill="#fff"/>
+                <rect x="50" y="80" width="14" height="3" rx="1.5" fill="#C9D4DF"/>
+                <rect x="96" y="44" width="36" height="30" rx="6" fill="#34BEE0"/>
+                <path d="M103 44 V36 a11 11 0 0 1 22 0 V44" stroke="#34BEE0" stroke-width="4" fill="none"/>
+                <path d="M107.5 59 L112 63.5 L120.5 54.5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="step-tag">One more step</span>
+            </div>
+            <h3>Lock in your price</h3>
+            <p>Upload a short video of your site and get a firm quote within 1 business day.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 4. Trust -->
+    <section class="section trust" aria-labelledby="trust-title">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Who's behind your quote</span>
+          <h2 id="trust-title">Priced by a local Northern Rivers fencing team</h2>
+          <p>Every instant quote uses real Byron &amp; Beyond Fencing pricing, from the same team that builds the fence.</p>
+        </div>
+
+        <div class="facts">
+          <div class="fact"><strong>12+ years</strong><span>Fencing locally</span></div>
+          <div class="fact"><strong>Local</strong><span>Byron Bay to Pottsville and beyond</span></div>
+          <div class="fact"><strong>Licensed</strong><span>Fully licensed &amp; insured</span></div>
+          <div class="fact">
+            <strong>4.9 / 5</strong>
+            <span class="stars" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+              <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+              <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+              <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+              <svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>
+            </span>
+            <span>From 71 Google reviews</span>
+          </div>
+        </div>
+
+        <!-- PHOTO PLACEHOLDERS: replace with completed residential jobs. -->
+        <div class="gallery">
+          <div class="ph" role="img" aria-label="Photo placeholder">Photo: completed Colorbond fence (wide)</div>
+          <div class="ph" role="img" aria-label="Photo placeholder">Photo: lapped &amp; capped hardwood</div>
+          <div class="ph" role="img" aria-label="Photo placeholder">Photo: treated pine paling</div>
+        </div>
+
+        <blockquote class="quote">
+          <p>“Great service. Excellent workmanship. Couldn't be happier.”</p>
+          <footer>Trunk Monk · Google review</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- 5. Why get an instant quote -->
+    <section class="section why" aria-labelledby="why-title">
+      <div class="wrap">
+        <div>
+          <span class="eyebrow">Why get an instant quote</span>
+          <h2 id="why-title">Plan your fence before organising a site visit</h2>
+          <p class="intro">See what your fence will cost without leaving home. If the price looks right, one more step gets you a firm quote and locks in your price.</p>
+          <ul class="benefits">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <div><strong>Your price, straight away</strong><span>No waiting days for someone to prepare a quote.</span></div>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18 L4 6 M4 18 L20 18"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="18" r="2"/></svg>
+              <div><strong>Easy to use</strong><span>Draw your fence directly on the map.</span></div>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <div><strong>No obligation</strong><span>Get an instant quote to understand your options before deciding what to do next.</span></div>
+            </li>
+          </ul>
+        </div>
+        <!-- PHOTO PLACEHOLDER: a homeowner-scale residential fence, ideally with a garden/house. -->
+        <div class="ph" role="img" aria-label="Photo placeholder">Photo: finished residential fence with garden</div>
+      </div>
+    </section>
+
+    <!-- 6. FAQ -->
+    <section class="section faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <div>
+          <span class="eyebrow">FAQ</span>
+          <h2 id="faq-title" style="font-size:clamp(1.9rem,3.6vw,2.75rem)">Good to know</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Is the instant quote my final price?</summary>
+            <div class="answer">
+              <p>Your instant quote is based on your real dimensions and the fence you choose. To lock in your price, upload a short video of the site and a few extra details. We'll send you a firm quote within 1 business day that takes your site conditions into account.</p>
+            </div>
+          </details>
+          <details>
+            <summary>What areas do you service?</summary>
+            <div class="answer">
+              <p>We work across the Northern Rivers, from Byron Bay to Pottsville and beyond, including Ballina, Ocean Shores and the surrounding hinterland.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Which fences can I get an instant quote for?</summary>
+            <div class="answer">
+              <p>Instant quotes are currently available for:</p>
+              <ul>
+                <li>Treated pine paling</li>
+                <li>Lapped &amp; capped treated pine</li>
+                <li>Top cap &amp; exposed posts</li>
+                <li>Colorbond</li>
+                <li>Lapped &amp; capped hardwood</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary>What happens after I get my instant quote?</summary>
+            <div class="answer">
+              <p>That's up to you. If the price looks right, upload a short video of the site and a few extra details, and we'll send you a firm quote within 1 business day to lock in your price.</p>
+              <p>Getting an instant quote doesn't commit you to anything, and you don't have to take the next step.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Final CTA -->
+    <section class="final" aria-labelledby="final-title">
+      <div class="wrap">
+        <h2 id="final-title">Ready to see what your fence will cost?</h2>
+        <a class="btn btn--light" href="#estimator" data-start>Get My Instant Quote <span class="arrow" aria-hidden="true">→</span></a>
+        <p class="microcopy">Free · No obligation · Takes just a few minutes</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <img src="assets/logo.png" alt="Byron &amp; Beyond Fencing" width="88" height="34" loading="lazy">
+      <p>© <span id="year">2026</span> Byron &amp; Beyond Fencing · Northern Rivers, NSW · <a href="https://www.byronandbeyondfencing.com.au/">Main website</a></p>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+    <a class="btn" href="#estimator" data-start tabindex="-1">Start My Estimate <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+
+  <script>
+    (function () {
+      var estimator = document.getElementById('estimator');
+      var sticky = document.getElementById('sticky-cta');
+      var header = document.querySelector('.site-header');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Every "Get My Instant Quote" button brings the estimator card into view and pulses it.
+      document.querySelectorAll('[data-start]').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+          estimator.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+          estimator.focus({ preventScroll: true });
+          estimator.classList.remove('pulse');
+          void estimator.offsetWidth;
+          estimator.classList.add('pulse');
+        });
+      });
+
+      window.addEventListener('scroll', function () {
+        header.classList.toggle('is-scrolled', window.scrollY > 8);
+      }, { passive: true });
+
+      // Sticky mobile CTA: shown only while no other start point is on screen,
+      // and retired for good once the estimator has gone fullscreen (started).
+      var onScreen = new Set();
+      var started = false;
+
+      function loaderCtaShowing() {
+        var el = document.querySelector('[data-bb-estimator-cta]');
+        return !!el && el.style.display !== 'none';
+      }
+
+      function update() {
+        var show = !started && onScreen.size === 0 && !loaderCtaShowing();
+        sticky.classList.toggle('is-visible', show);
+        document.body.classList.toggle('has-sticky', show && getComputedStyle(sticky).display !== 'none');
+      }
+
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) onScreen.add(en.target); else onScreen.delete(en.target);
+          });
+          update();
+        }, { threshold: 0.2 });
+        [estimator, document.getElementById('hero-cta'), document.querySelector('.final')].forEach(function (el) { io.observe(el); });
+      }
+
+      // The embed loader sets inline styles on its iframe (position:fixed when
+      // fullscreen) and on its own floating button; watch for both.
+      new MutationObserver(function () {
+        var frame = estimator.querySelector('iframe');
+        if (frame && frame.style.position === 'fixed') started = true;
+        update();
+      }).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['style'] });
+
+      window.addEventListener('resize', update);
+    })();
+  </script>
+</body>
+</html>
