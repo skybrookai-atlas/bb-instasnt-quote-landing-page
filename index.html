@@ -193,19 +193,13 @@
     .quote p { font: 400 clamp(1.3rem, 2.4vw, 1.7rem)/1.4 var(--font-head); color: var(--ink); letter-spacing: -0.01em; }
     .quote footer { margin-top: 14px; font-size: .9rem; color: var(--muted); }
 
-    /* Photo placeholders: swap each <div class="ph"> for an <img> of the same size. */
-    .ph {
-      position: relative;
-      aspect-ratio: 4 / 3;
+    .photo {
+      width: 100%; height: 100%;
+      object-fit: cover;
       border-radius: var(--radius);
-      background:
-        repeating-linear-gradient(90deg, transparent 0 22px, rgba(21, 38, 58, .045) 22px 24px),
-        var(--ph);
-      display: flex; align-items: flex-end;
-      padding: 16px;
-      color: var(--muted); font-size: .82rem;
+      background: var(--ph);
     }
-    .gallery .ph:first-child { aspect-ratio: auto; min-height: 100%; }
+    .gallery { grid-auto-rows: clamp(220px, 26vw, 340px); }
 
     /* ---------- Why ---------- */
     .why .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
@@ -216,7 +210,7 @@
     .benefits svg { width: 24px; height: 24px; color: var(--sky); margin-top: 2px; }
     .benefits strong { display: block; font: 500 1.1rem/1.3 var(--font-head); color: var(--ink); }
     .benefits span { color: var(--muted); font-size: .95rem; }
-    .why .ph { aspect-ratio: 4 / 5; }
+    .why .photo { aspect-ratio: 4 / 3; height: auto; object-position: 55% 50%; }
 
     /* ---------- FAQ ---------- */
     .faq { background: var(--bg-soft); }
@@ -273,7 +267,7 @@
       .hero h1 { max-width: 14ch; }
       .estimator { max-width: 600px; }
       .why .wrap, .faq .wrap { grid-template-columns: 1fr; gap: 40px; }
-      .why .ph { aspect-ratio: 16 / 10; order: -1; }
+      .why .photo { aspect-ratio: 16 / 10; order: -1; object-position: 50% 60%; }
     }
     @media (max-width: 767px) {
       :root { --header-h: 60px; --gutter: 16px; }
@@ -297,7 +291,9 @@
       .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
       .fact strong { font-size: 1.55rem; }
       .gallery { grid-template-columns: 1fr 1fr; }
-      .gallery .ph:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+      .gallery { grid-auto-rows: auto; }
+      .gallery .photo { aspect-ratio: 4 / 3; height: auto; }
+      .gallery .photo:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
       .final { padding: 72px 0; }
       .final .btn { width: 100%; }
       .site-footer .wrap { justify-content: center; text-align: center; }
@@ -467,11 +463,10 @@
           </div>
         </div>
 
-        <!-- PHOTO PLACEHOLDERS: replace with completed residential jobs. -->
         <div class="gallery">
-          <div class="ph" role="img" aria-label="Photo placeholder">Photo: completed Colorbond fence (wide)</div>
-          <div class="ph" role="img" aria-label="Photo placeholder">Photo: lapped &amp; capped hardwood</div>
-          <div class="ph" role="img" aria-label="Photo placeholder">Photo: treated pine paling</div>
+          <img class="photo" src="assets/photos/pine-fence-byron-ocean.jpg" alt="Stepped treated pine fence in a Byron Bay garden overlooking the ocean" width="1400" height="630" loading="lazy" decoding="async">
+          <img class="photo" src="assets/photos/hardwood-paling-fence.jpg" alt="Hardwood paling fence with a garden gate and new plantings" width="1000" height="486" loading="lazy" decoding="async">
+          <img class="photo" src="assets/photos/pine-paling-fence.jpg" alt="Treated pine paling fence along a garden bed" width="1000" height="562" loading="lazy" decoding="async">
         </div>
 
         <blockquote class="quote">
@@ -503,8 +498,7 @@
             </li>
           </ul>
         </div>
-        <!-- PHOTO PLACEHOLDER: a homeowner-scale residential fence, ideally with a garden/house. -->
-        <div class="ph" role="img" aria-label="Photo placeholder">Photo: finished residential fence with garden</div>
+        <img class="photo" src="assets/photos/colorbond-backyard.jpg" alt="White Colorbond fence with dark posts around a landscaped backyard" width="1200" height="560" loading="lazy" decoding="async">
       </div>
     </section>
 
@@ -571,7 +565,7 @@
   </footer>
 
   <div class="sticky-cta" id="sticky-cta" aria-hidden="true">
-    <a class="btn" href="#estimator" data-start tabindex="-1">Start My Estimate <span class="arrow" aria-hidden="true">→</span></a>
+    <a class="btn" href="#estimator" data-start tabindex="-1">Get My Instant Quote <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 
   <script>
